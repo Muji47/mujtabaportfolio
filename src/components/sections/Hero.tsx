@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FaGithub, FaLinkedin, FaDownload, FaArrowRight, FaEnvelope } from "react-icons/fa";
+import { profileLinks } from "@/lib/data";
 import { smoothScrollTo } from "@/lib/utils";
 import { typingTexts } from "@/lib/data";
 
@@ -168,9 +169,9 @@ export default function Hero() {
               <span className="text-gray-600 text-xs uppercase tracking-widest">Follow</span>
               <div className="w-8 h-px bg-gray-700" />
               {[
-                { icon: FaGithub, href: "https://github.com/Muji47", label: "GitHub" },
-                { icon: FaLinkedin, href: "https://www.linkedin.com/in/m-mujtaba-tahir-139316243/", label: "LinkedIn" },
-                { icon: FaEnvelope, href: "mailto:mujtabach577@gmail.com", label: "Email" },
+                { icon: FaGithub, href: profileLinks.github, label: "GitHub" },
+                { icon: FaLinkedin, href: profileLinks.linkedin, label: "LinkedIn" },
+                { icon: FaEnvelope, href: `mailto:${profileLinks.email}`, label: "Email" },
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}

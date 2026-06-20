@@ -9,6 +9,12 @@ import type {
   NavLink,
 } from "@/types";
 
+export const profileLinks = {
+  github: "https://github.com/Muji47",
+  linkedin: "https://www.linkedin.com/in/m-mujtaba-tahir-139316243",
+  email: "mujtabach577@gmail.com",
+} as const;
+
 export const navLinks: NavLink[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },

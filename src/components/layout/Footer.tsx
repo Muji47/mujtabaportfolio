@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { navLinks } from "@/lib/data";
+import { navLinks, profileLinks } from "@/lib/data";
 import { smoothScrollTo } from "@/lib/utils";
 import {
   FaGithub,
@@ -17,19 +17,19 @@ import { MdWork } from "react-icons/md";
 const socialLinks = [
   {
     icon: FaGithub,
-    href: "https://github.com/Muji47",
+    href: profileLinks.github,
     label: "GitHub",
     color: "#e2e8f0",
   },
   {
     icon: FaLinkedin,
-    href: "https://www.linkedin.com/in/m-mujtaba-tahir-139316243/",
+    href: profileLinks.linkedin,
     label: "LinkedIn",
     color: "#0ea5e9",
   },
   {
     icon: FaEnvelope,
-    href: "mailto:mujtabach577@gmail.com",
+    href: `mailto:${profileLinks.email}`,
     label: "Email",
     color: "#f472b6",
   },
@@ -38,8 +38,8 @@ const socialLinks = [
 const contactInfo = [
   {
     icon: FaEnvelope,
-    text: "mujtabach577@gmail.com",
-    href: "mailto:mujtabach577@gmail.com",
+    text: profileLinks.email,
+    href: `mailto:${profileLinks.email}`,
   },
   {
     icon: FaMapMarkerAlt,

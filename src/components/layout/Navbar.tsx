@@ -15,11 +15,12 @@ import {
   FaMoon,
   FaTimes,
   FaGithub,
+  FaLinkedin,
   FaDownload,
 } from "react-icons/fa";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdWork } from "react-icons/md";
-import { navLinks } from "@/lib/data";
+import { navLinks, profileLinks } from "@/lib/data";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { smoothScrollTo } from "@/lib/utils";
 
@@ -138,7 +139,7 @@ export default function Navbar() {
 
               {/* GitHub */}
               <motion.a
-                href="https://github.com/Muji47"
+                href={profileLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.08 }}
@@ -147,6 +148,19 @@ export default function Navbar() {
                 aria-label="GitHub"
               >
                 <FaGithub size={15} />
+              </motion.a>
+
+              {/* LinkedIn */}
+              <motion.a
+                href={profileLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
+                className="hidden sm:flex w-9 h-9 rounded-xl border border-white/[0.07] bg-white/[0.03] items-center justify-center text-gray-400 hover:text-sky-400 hover:border-sky-400/20 transition-all"
+                aria-label="LinkedIn"
+              >
+                <FaLinkedin size={14} />
               </motion.a>
 
               {/* Theme toggle */}

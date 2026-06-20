@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { profileLinks } from "@/lib/data";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -22,8 +23,8 @@ const contactInfo = [
   {
     icon: FaEnvelope,
     label: "Email",
-    value: "mujtabach577@gmail.com",
-    href: "mailto:mujtabach577@gmail.com",
+    value: profileLinks.email,
+    href: `mailto:${profileLinks.email}`,
     color: "text-indigo-400",
     bg: "bg-indigo-500/10 border-indigo-500/20",
   },
@@ -31,7 +32,7 @@ const contactInfo = [
     icon: FaGithub,
     label: "GitHub",
     value: "github.com/Muji47",
-    href: "https://github.com/Muji47",
+    href: profileLinks.github,
     color: "text-gray-300",
     bg: "bg-white/5 border-white/10",
   },
@@ -39,7 +40,7 @@ const contactInfo = [
     icon: FaLinkedin,
     label: "LinkedIn",
     value: "linkedin.com/in/m-mujtaba-tahir-139316243",
-    href: "https://www.linkedin.com/in/m-mujtaba-tahir-139316243/",
+    href: profileLinks.linkedin,
     color: "text-blue-400",
     bg: "bg-blue-500/10 border-blue-500/20",
   },

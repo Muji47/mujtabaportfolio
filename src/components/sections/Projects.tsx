@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { projects } from "@/lib/data";
+import { projects, profileLinks } from "@/lib/data";
 
 const CATEGORIES = ["All", "Full Stack", "Frontend"];
 
@@ -236,7 +236,7 @@ export default function Projects() {
         {/* CTA */}
         <AnimatedSection direction="up" delay={0.3} className="text-center mt-12">
           <motion.a
-            href="https://github.com/Muji47"
+            href={profileLinks.github}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.04, y: -2 }}
