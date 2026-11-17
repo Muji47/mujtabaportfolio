@@ -1,105 +1,106 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { IconType } from "react-icons";
-import {
-  FaLayerGroup, FaCode, FaServer, FaDatabase,
-  FaExchangeAlt, FaChartBar, FaBolt, FaArrowRight,
-} from "react-icons/fa";
-import { SiNextdotjs, SiNodedotjs } from "react-icons/si";
+import { FaCheckCircle, FaArrowRight, FaShieldAlt, FaLaptopCode, FaBolt } from "react-icons/fa";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { services } from "@/lib/data";
 import { smoothScrollTo } from "@/lib/utils";
 
-/* Map service id → icon + accent colour */
-const SERVICE_ICONS: Record<number, { icon: IconType; color: string; bg: string }> = {
-  1: { icon: FaLayerGroup,   color: "#818cf8", bg: "bg-indigo-500/10 border-indigo-500/20" },
-  2: { icon: FaCode,         color: "#38bdf8", bg: "bg-cyan-500/10   border-cyan-500/20"   },
-  3: { icon: FaServer,       color: "#34d399", bg: "bg-emerald-500/10 border-emerald-500/20" },
-  4: { icon: SiNextdotjs,    color: "#ffffff", bg: "bg-white/5       border-white/10"       },
-  5: { icon: SiNodedotjs,    color: "#539e43", bg: "bg-green-500/10  border-green-500/20"  },
-  6: { icon: FaDatabase,     color: "#60a5fa", bg: "bg-blue-500/10   border-blue-500/20"   },
-  7: { icon: FaExchangeAlt,  color: "#f472b6", bg: "bg-pink-500/10   border-pink-500/20"   },
-  8: { icon: FaBolt,         color: "#fbbf24", bg: "bg-amber-500/10  border-amber-500/20"  },
-  9: { icon: FaChartBar,     color: "#a78bfa", bg: "bg-purple-500/10 border-purple-500/20" },
+const SERVICE_META: Record<number, { icon: React.ElementType; badge: string }> = {
+  1: { icon: FaShieldAlt, badge: "Most Popular for Agencies" },
+  2: { icon: FaLaptopCode, badge: "Full-Cycle Engineering" },
+  3: { icon: FaBolt, badge: "High-ROI Conversion" },
+  4: { icon: FaBolt, badge: "Performance Guarantee" },
 };
 
 export default function Services() {
   return (
-    <section id="services" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-15 pointer-events-none" />
-      <div className="absolute top-1/2 right-0 w-80 h-80 bg-purple-600/8 rounded-full blur-[120px] pointer-events-none" />
+    <section id="services" className="py-28 md:py-36 relative overflow-hidden bg-[#09090b]">
+      {/* Ambient Lighting */}
+      <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="section-container relative">
+      <div className="section-container relative z-10 max-w-6xl mx-auto">
         <SectionHeader
-          badge="What I Do"
-          title="My"
-          highlight="Services"
-          description="Comprehensive web development services tailored to your needs"
+          badge="Engagement Models"
+          title="How We Can"
+          highlight="Work Together"
+          description="Transparent, reliable engineering capacity tailored for digital agencies and high-ticket service businesses."
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {services.map((service, idx) => {
-            const iconData = SERVICE_ICONS[service.id];
-            const Icon = iconData?.icon ?? FaCode;
+        {/* ── Services Cards Grid ── */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.slice(0, 3).map((service, idx) => {
+            const meta = SERVICE_META[service.id] || { icon: FaLaptopCode, badge: "Custom Engineering" };
+            const Icon = meta.icon;
+
             return (
-              <AnimatedSection key={service.id} direction="up" delay={idx * 0.06}>
-                <motion.div
-                  whileHover={{ y: -6 }}
-                  className="group bg-white/[0.02] rounded-2xl p-5 border border-white/[0.06] hover:border-indigo-500/30 transition-all h-full flex flex-col"
-                >
-                  {/* Icon */}
-                  <div className={`w-11 h-11 rounded-xl border flex items-center justify-center mb-4 ${iconData?.bg ?? "bg-indigo-500/10 border-indigo-500/20"} transition-colors group-hover:scale-105`}>
-                    <Icon size={19} color={iconData?.color ?? "#818cf8"} />
+              <AnimatedSection key={service.id} direction="up" delay={idx * 0.1}>
+                <div className="h-full rounded-3xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl p-8 hover:border-zinc-700 transition-all flex flex-col justify-between shadow-2xl group">
+                  
+                  {/* Top Header */}
+                  <div>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center text-white group-hover:border-emerald-500/40 transition-colors">
+                        <Icon size={18} />
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-zinc-400 text-[11px] font-medium">
+                        {meta.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-white tracking-tight mb-3 group-hover:text-emerald-400 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6">
+                      {service.description}
+                    </p>
+
+                    {/* Features List with Generous Spacing */}
+                    <ul className="space-y-3 mb-8">
+                      {service.features.map((feat) => (
+                        <li key={feat} className="flex items-start gap-2.5 text-xs text-zinc-300">
+                          <FaCheckCircle className="text-emerald-400 flex-shrink-0 mt-0.5" size={12} />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <h3 className="text-white font-semibold text-[15px] mb-1.5 group-hover:text-indigo-300 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
-                    {service.description}
-                  </p>
-
-                  {/* Features */}
-                  <ul className="space-y-1.5 mb-5">
-                    {service.features.map((feat) => (
-                      <li key={feat} className="flex items-center gap-2 text-gray-500 text-xs">
-                        <span className="w-1 h-1 rounded-full bg-indigo-500 flex-shrink-0" />
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-
+                  {/* Tactile Button with Generous Padding */}
                   <button
                     onClick={() => smoothScrollTo("#contact")}
-                    className="flex items-center gap-1.5 text-indigo-400 text-xs font-medium hover:text-indigo-300 transition-colors group/btn cursor-pointer mt-auto"
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-zinc-800 bg-zinc-950/80 text-zinc-200 text-xs font-semibold hover:bg-white hover:text-zinc-950 hover:border-white transition-all cursor-pointer shadow-sm group/btn"
                   >
-                    Get Started
-                    <FaArrowRight size={9} className="transition-transform group-hover/btn:translate-x-1" />
+                    <span>Inquire About This Service</span>
+                    <FaArrowRight size={10} className="group-hover/btn:translate-x-1 transition-transform" />
                   </button>
-                </motion.div>
+
+                </div>
               </AnimatedSection>
             );
           })}
         </div>
 
-        {/* CTA banner */}
-        <AnimatedSection direction="up" delay={0.3} className="mt-14">
-          <div className="bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-indigo-600/10 border border-indigo-500/20 rounded-2xl p-8 text-center">
-            <h3 className="text-xl font-bold text-white mb-2">Have a project in mind?</h3>
-            <p className="text-gray-400 text-sm mb-6">Let&apos;s collaborate and build something amazing together.</p>
-            <motion.button
+        {/* ── Direct Agency Capacity Callout Banner ── */}
+        <AnimatedSection direction="up" delay={0.25} className="mt-16">
+          <div className="rounded-3xl border border-zinc-800/80 bg-gradient-to-r from-zinc-900/60 via-zinc-950/80 to-zinc-900/60 backdrop-blur-2xl p-8 sm:p-12 text-center shadow-2xl">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">
+              Need immediate white-label development capacity?
+            </h3>
+            <p className="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto mb-8 font-normal">
+              Whether you need to clear an overflowing client backlog or launch an interactive calculator funnel, I integrate seamlessly into your workflow.
+            </p>
+            <button
               onClick={() => smoothScrollTo("#contact")}
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:from-indigo-500 hover:to-purple-500 transition-all cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white text-zinc-950 font-semibold text-xs sm:text-sm hover:bg-zinc-200 transition-all shadow-xl shadow-white/5 cursor-pointer"
             >
-              Start a Project
-              <FaArrowRight size={12} />
-            </motion.button>
+              <span>Discuss Agency Partnership</span>
+              <FaArrowRight size={11} />
+            </button>
           </div>
         </AnimatedSection>
+
       </div>
     </section>
   );

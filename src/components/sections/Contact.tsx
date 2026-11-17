@@ -5,56 +5,22 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaEnvelope, FaLinkedin, FaGithub, FaCopy, FaCheck, FaArrowRight, FaClock } from "react-icons/fa";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { profileLinks } from "@/lib/data";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(20, "Message must be at least 20 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  projectType: z.string().min(2, "Please select an engagement type"),
+  message: z.string().min(10, "Please provide a brief message"),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
 
-const contactInfo = [
-  {
-    icon: FaEnvelope,
-    label: "Email",
-    value: profileLinks.email,
-    href: `mailto:${profileLinks.email}`,
-    color: "text-indigo-400",
-    bg: "bg-indigo-500/10 border-indigo-500/20",
-  },
-  {
-    icon: FaGithub,
-    label: "GitHub",
-    value: "github.com/Muji47",
-    href: profileLinks.github,
-    color: "text-gray-300",
-    bg: "bg-white/5 border-white/10",
-  },
-  {
-    icon: FaLinkedin,
-    label: "LinkedIn",
-    value: "linkedin.com/in/m-mujtaba-tahir-139316243",
-    href: profileLinks.linkedin,
-    color: "text-blue-400",
-    bg: "bg-blue-500/10 border-blue-500/20",
-  },
-  {
-    icon: FaMapMarkerAlt,
-    label: "Location",
-    value: "Pakistan 🇵🇰",
-    href: null,
-    color: "text-green-400",
-    bg: "bg-green-500/10 border-green-500/20",
-  },
-];
-
 export default function Contact() {
+  const [copied, setCopied] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -65,207 +31,219 @@ export default function Contact() {
     formState: { errors },
   } = useForm<ContactForm>({ resolver: zodResolver(contactSchema) });
 
+  const copyEmail = () => {
+    navigator.clipboard.writeText(profileLinks.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   const onSubmit = async (data: ContactForm) => {
     setLoading(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Form data:", data);
+    await new Promise((res) => setTimeout(res, 1200));
+    console.log("Contact submission:", data);
     setLoading(false);
     setSubmitted(true);
     reset();
     setTimeout(() => setSubmitted(false), 5000);
   };
 
-  const inputClass = (hasError: boolean) =>
-    `w-full px-4 py-3 rounded-xl glass border ${
-      hasError
-        ? "border-red-500/50 focus:border-red-500"
-        : "border-indigo-500/20 focus:border-indigo-500/60"
-    } text-white placeholder-gray-500 text-sm outline-none transition-colors bg-transparent`;
-
   return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="contact" className="py-28 md:py-36 relative overflow-hidden bg-[#09090b]">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-emerald-500/5 rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="section-container relative">
+      <div className="section-container relative z-10 max-w-6xl mx-auto">
         <SectionHeader
-          badge="Get In Touch"
-          title="Contact"
-          highlight="Me"
-          description="Have a project in mind? Let's discuss and build something great together."
+          badge="Direct Inquiry"
+          title="Start a Project or"
+          highlight="Partner Together"
+          description="Have an upcoming build, need agency overflow capacity, or want to discuss a custom web application? Reach out directly."
         />
 
-        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Left - Contact info */}
-          <AnimatedSection direction="left" className="lg:col-span-2">
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-white text-xl font-bold mb-2">
-                  Let&apos;s work together
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  I&apos;m always open to discussing new opportunities, interesting
-                  projects, or just having a conversation about web development.
-                </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+          {/* ── Left Column: Direct Contact Info (Span 5) ── */}
+          <AnimatedSection direction="up" delay={0.1} className="lg:col-span-5 space-y-6">
+            
+            {/* Quick Email Copy Card with Generous Padding */}
+            <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl p-8 shadow-2xl">
+              <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2">
+                Primary Contact
               </div>
+              <h3 className="text-xl font-bold text-white mb-2">Direct Email</h3>
+              <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6">
+                Direct inbox access for RFP documents, project specs, and white-label discovery calls.
+              </p>
 
-              <div className="space-y-3 pt-2">
-                {contactInfo.map((item) => {
-                  const Icon = item.icon;
-                  const content = (
-                    <div
-                      className={`flex items-center gap-4 p-4 rounded-xl border ${item.bg} hover:border-opacity-60 transition-all`}
-                    >
-                      <div className={`${item.color} flex-shrink-0`}>
-                        <Icon size={20} />
-                      </div>
-                      <div>
-                        <p className="text-gray-500 text-xs">{item.label}</p>
-                        <p className={`${item.color} text-sm font-medium`}>
-                          {item.value}
-                        </p>
-                      </div>
-                    </div>
-                  );
-
-                  return item.href ? (
-                    <motion.a
-                      key={item.label}
-                      href={item.href}
-                      target={item.href.startsWith("http") ? "_blank" : undefined}
-                      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      whileHover={{ x: 4 }}
-                      className="block"
-                    >
-                      {content}
-                    </motion.a>
-                  ) : (
-                    <div key={item.label}>{content}</div>
-                  );
-                })}
-              </div>
-
-              {/* Availability badge */}
-              <div className="flex items-center gap-3 p-4 rounded-xl glass border border-green-500/20">
-                <span className="w-3 h-3 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
-                <div>
-                  <p className="text-white text-sm font-medium">Available for Work</p>
-                  <p className="text-gray-400 text-xs">
-                    Open to full-time and freelance projects
-                  </p>
+              <button
+                onClick={copyEmail}
+                className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl border border-zinc-800 bg-zinc-950/80 text-zinc-200 text-xs sm:text-sm font-mono hover:border-zinc-700 hover:text-white transition-all cursor-pointer group shadow-inner"
+              >
+                <div className="flex items-center gap-3 truncate">
+                  <FaEnvelope className="text-emerald-400 flex-shrink-0" size={14} />
+                  <span className="truncate">{profileLinks.email}</span>
                 </div>
+                {copied ? (
+                  <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-sans font-semibold">
+                    <FaCheck size={11} /> Copied
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1.5 text-xs text-zinc-400 font-sans group-hover:text-zinc-200">
+                    <FaCopy size={11} /> Copy
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Social Channels with Generous Padding */}
+            <div className="grid grid-cols-2 gap-4">
+              <a
+                href={profileLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-5 rounded-3xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl hover:border-zinc-700 transition-all group shadow-xl"
+              >
+                <div className="w-10 h-10 rounded-2xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center text-zinc-300 group-hover:text-emerald-400 transition-colors">
+                  <FaLinkedin size={16} />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white">LinkedIn</div>
+                  <div className="text-[11px] text-zinc-400">Direct Message</div>
+                </div>
+              </a>
+
+              <a
+                href={profileLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-5 rounded-3xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl hover:border-zinc-700 transition-all group shadow-xl"
+              >
+                <div className="w-10 h-10 rounded-2xl bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center text-zinc-300 group-hover:text-white transition-colors">
+                  <FaGithub size={16} />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white">GitHub</div>
+                  <div className="text-[11px] text-zinc-400">Repositories</div>
+                </div>
+              </a>
+            </div>
+
+            {/* Response Time Guarantee Pill Card */}
+            <div className="flex items-center gap-3.5 p-5 rounded-3xl border border-emerald-500/20 bg-emerald-950/20 text-emerald-300 text-xs shadow-xl">
+              <FaClock size={16} className="text-emerald-400 flex-shrink-0" />
+              <div>
+                <span className="font-semibold text-white">Rapid Response Standard:</span> Fast reply turnaround during Australian (AEST) &amp; international business hours.
               </div>
             </div>
+
           </AnimatedSection>
 
-          {/* Right - Contact form */}
-          <AnimatedSection direction="right" delay={0.2} className="lg:col-span-3">
-            <div className="glass rounded-2xl p-6 md:p-8 border border-indigo-500/20">
+          {/* ── Right Column: Clean Inquiry Form (Span 7) ── */}
+          <AnimatedSection direction="up" delay={0.15} className="lg:col-span-7">
+            <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl p-8 sm:p-10 shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                Project Inquiry
+              </h3>
+              <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-8">
+                Fill in the details below and I’ll get back to you with timeline and estimate feasibility.
+              </p>
+
               {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center justify-center py-12 text-center"
-                >
-                  <div className="text-5xl mb-4">✅</div>
-                  <h3 className="text-white text-xl font-bold mb-2">
-                    Message Sent!
-                  </h3>
-                  <p className="text-gray-400 text-sm">
-                    Thank you for reaching out. I&apos;ll get back to you within 24
-                    hours.
+                <div className="p-8 rounded-2xl border border-emerald-500/30 bg-emerald-950/30 text-center space-y-3">
+                  <div className="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                    <FaCheck size={18} />
+                  </div>
+                  <h4 className="text-lg font-bold text-white">Message Dispatched</h4>
+                  <p className="text-xs text-zinc-300 max-w-sm mx-auto">
+                    Thank you for reaching out. I’ll review your project details and follow up within one business day.
                   </p>
-                </motion.div>
+                </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
+                  
+                  {/* Name Input */}
+                  <div>
+                    <label className="block text-xs font-medium text-zinc-300 mb-2">
+                      Your Name / Company
+                    </label>
+                    <input
+                      {...register("name")}
+                      placeholder="e.g. Alex Morgan · Apex Digital"
+                      className="w-full px-5 py-3.5 rounded-2xl border border-zinc-800 bg-zinc-950/80 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 outline-none transition-all"
+                    />
+                    {errors.name && (
+                      <p className="text-xs text-rose-400 mt-1.5">{errors.name.message}</p>
+                    )}
+                  </div>
+
+                  {/* Email & Project Type */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="text-gray-400 text-xs font-medium block mb-1.5">
-                        Your Name *
-                      </label>
-                      <input
-                        {...register("name")}
-                        placeholder="Muhammad Ali"
-                        className={inputClass(!!errors.name)}
-                      />
-                      {errors.name && (
-                        <p className="text-red-400 text-xs mt-1">
-                          {errors.name.message}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="text-gray-400 text-xs font-medium block mb-1.5">
-                        Email Address *
+                      <label className="block text-xs font-medium text-zinc-300 mb-2">
+                        Work Email
                       </label>
                       <input
                         {...register("email")}
                         type="email"
-                        placeholder="ali@example.com"
-                        className={inputClass(!!errors.email)}
+                        placeholder="alex@company.com"
+                        className="w-full px-5 py-3.5 rounded-2xl border border-zinc-800 bg-zinc-950/80 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 outline-none transition-all"
                       />
                       {errors.email && (
-                        <p className="text-red-400 text-xs mt-1">
-                          {errors.email.message}
-                        </p>
+                        <p className="text-xs text-rose-400 mt-1.5">{errors.email.message}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-zinc-300 mb-2">
+                        Engagement Scope
+                      </label>
+                      <select
+                        {...register("projectType")}
+                        className="w-full px-5 py-3.5 rounded-2xl border border-zinc-800 bg-zinc-950/80 text-white text-sm focus:border-zinc-500 outline-none transition-all"
+                      >
+                        <option value="Agency White-Label Capacity">Agency White-Label Capacity</option>
+                        <option value="Direct Web Application Build">Direct Web Application Build</option>
+                        <option value="Interactive Calculator / Funnel">Interactive Calculator / Funnel</option>
+                        <option value="Performance & Speed Rebuild">Performance &amp; Speed Rebuild</option>
+                      </select>
+                      {errors.projectType && (
+                        <p className="text-xs text-rose-400 mt-1.5">{errors.projectType.message}</p>
                       )}
                     </div>
                   </div>
 
+                  {/* Message Input */}
                   <div>
-                    <label className="text-gray-400 text-xs font-medium block mb-1.5">
-                      Subject *
-                    </label>
-                    <input
-                      {...register("subject")}
-                      placeholder="Project Discussion"
-                      className={inputClass(!!errors.subject)}
-                    />
-                    {errors.subject && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.subject.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="text-gray-400 text-xs font-medium block mb-1.5">
-                      Message *
+                    <label className="block text-xs font-medium text-zinc-300 mb-2">
+                      Project Overview &amp; Timeline
                     </label>
                     <textarea
                       {...register("message")}
-                      placeholder="Tell me about your project, goals, and timeline..."
-                      rows={5}
-                      className={`${inputClass(!!errors.message)} resize-none`}
+                      rows={4}
+                      placeholder="Tell me about your Figma designs, stack requirements, or client deliverables..."
+                      className="w-full px-5 py-3.5 rounded-2xl border border-zinc-800 bg-zinc-950/80 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 outline-none transition-all resize-none"
                     />
                     {errors.message && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.message.message}
-                      </p>
+                      <p className="text-xs text-rose-400 mt-1.5">{errors.message.message}</p>
                     )}
                   </div>
 
-                  <motion.button
+                  {/* Submit Button with Generous Padding */}
+                  <button
                     type="submit"
                     disabled={loading}
-                    whileHover={{ scale: loading ? 1 : 1.02 }}
-                    whileTap={{ scale: loading ? 1 : 0.98 }}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:from-indigo-500 hover:to-purple-500 transition-all glow disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 rounded-full bg-white text-zinc-950 font-bold text-sm hover:bg-zinc-200 transition-all shadow-xl shadow-white/5 cursor-pointer flex items-center justify-center gap-2.5 disabled:opacity-50"
                   >
-                    {loading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>Send Message ✉️</>
-                    )}
-                  </motion.button>
+                    <span>{loading ? "Sending..." : "Submit Project Inquiry"}</span>
+                    <FaArrowRight size={11} />
+                  </button>
+
                 </form>
               )}
+
             </div>
           </AnimatedSection>
+
         </div>
       </div>
     </section>
