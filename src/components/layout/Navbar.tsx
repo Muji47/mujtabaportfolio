@@ -96,8 +96,8 @@ export default function Navbar() {
                 <span className="text-[13px] font-bold text-white tracking-tight">
                   Mujtaba<span className="text-indigo-400">Tahir</span>
                 </span>
-                <span className="text-[10px] text-gray-500 tracking-widest uppercase">
-                  Full Stack Dev
+                <span className="text-[10px] text-gray-400 tracking-widest uppercase">
+                  Full-Stack Partner
                 </span>
               </div>
             </motion.button>

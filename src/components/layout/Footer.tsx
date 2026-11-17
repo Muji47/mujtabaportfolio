@@ -84,13 +84,12 @@ export default function Footer() {
               </div>
               <div>
                 <span className="text-xl font-black gradient-text tracking-tight">&lt;MMT /&gt;</span>
-                <p className="text-[10px] text-gray-600 font-medium -mt-0.5 tracking-widest uppercase">Full Stack Dev</p>
+                <p className="text-[10px] text-gray-400 font-medium -mt-0.5 tracking-widest uppercase">Full-Stack Partner</p>
               </div>
             </button>
 
-            <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-sm">
-              Building scalable, high-performance web applications using modern
-              frontend and backend technologies. Based in Pakistan, available worldwide.
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+              Engineering high-converting, sub-second web applications in Next.js 16 &amp; React 19. Available for direct business builds and agency white-label overflow.
             </p>
 
             {/* Social icons */}
@@ -179,9 +178,8 @@ export default function Footer() {
 
         {/* ── Bottom bar ── */}
         <div className="border-t border-white/[0.05] py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-gray-600 text-xs flex items-center gap-1.5">
-            © 2026 Muhammad Mujtaba Tahir · Made with{" "}
-            <FaHeart className="text-red-500/80" size={10} /> in Pakistan
+          <p className="text-gray-500 text-xs flex items-center gap-1.5">
+            © 2026 Muhammad Mujtaba Tahir · High-Performance Web Engineering &amp; White-Label Solutions
           </p>
 
           <div className="flex items-center gap-4">
