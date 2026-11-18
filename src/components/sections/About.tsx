@@ -1,189 +1,131 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  FaLayerGroup, FaBolt, FaCubes, FaMobileAlt,
-  FaCheckCircle, FaArrowRight,
-} from "react-icons/fa";
-import { MdLocationOn } from "react-icons/md";
-import AnimatedSection from "@/components/ui/AnimatedSection";
+import { FaCheckCircle, FaArrowRight, FaDownload, FaCode, FaBolt, FaShieldAlt } from "react-icons/fa";
 import SectionHeader from "@/components/ui/SectionHeader";
-
-const highlights = [
-  {
-    icon: FaLayerGroup,
-    color: "#818cf8",
-    bg: "bg-indigo-500/10 border-indigo-500/20",
-    label: "Full Stack Development",
-    desc: "End-to-end web solutions",
-  },
-  {
-    icon: FaBolt,
-    color: "#fbbf24",
-    bg: "bg-amber-500/10 border-amber-500/20",
-    label: "Performance Optimization",
-    desc: "Fast, scalable apps",
-  },
-  {
-    icon: FaCubes,
-    color: "#34d399",
-    bg: "bg-emerald-500/10 border-emerald-500/20",
-    label: "Clean Architecture",
-    desc: "Maintainable codebase",
-  },
-  {
-    icon: FaMobileAlt,
-    color: "#60a5fa",
-    bg: "bg-blue-500/10 border-blue-500/20",
-    label: "Responsive Design",
-    desc: "All devices, pixel-perfect",
-  },
-];
+import AnimatedSection from "@/components/ui/AnimatedSection";
+import { smoothScrollTo } from "@/lib/utils";
 
 const facts = [
-  { label: "Core Stack", value: "Next.js 16, React 19, TypeScript" },
-  { label: "Backend & DB", value: "Node.js, PostgreSQL, REST APIs" },
-  { label: "Performance", value: "95+ Lighthouse, Sub-second TTFB" },
-  { label: "Agency Ready", value: "White-label & overflow capacity" },
-  { label: "Turnaround", value: "Rapid sprints (48h - 14 days)" },
-  { label: "Communication", value: "Fluent English, async & real-time" },
+  { label: "Core Specialization", value: "Next.js 16, React 19, TypeScript" },
+  { label: "Backend & Systems", value: "Node.js, PostgreSQL, REST APIs" },
+  { label: "Performance Standard", value: "95+ Lighthouse · Sub-Second TTFB" },
+  { label: "Agency Delivery", value: "White-label & overflow capacity" },
+  { label: "Sprint Speed", value: "Rapid delivery (48h - 10 days)" },
+  { label: "Communication", value: "Fluent English, real-time & async" },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="section-padding relative overflow-hidden">
-      <div className="absolute top-1/2 right-0 w-72 h-72 bg-indigo-600/8 rounded-full blur-[100px] pointer-events-none" />
+    <section id="about" className="py-24 sm:py-32 relative overflow-hidden bg-[#09090b]">
+      {/* Background Subtle Glow */}
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="section-container">
+      <div className="section-container relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         <SectionHeader
-          badge="Engineering & Capabilities"
-          title="Full-Stack"
-          highlight="Partner"
-          description="High-performance web architecture, robust Next.js systems, and dedicated agency capacity."
+          badge="Background & Principles"
+          title="Full-Stack Engineer &amp;"
+          highlight="Technical Partner"
+          description="Who I am, how I engineer software, and why agencies and high-ticket service companies trust me with their development backlog."
         />
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-          {/* ── Left: visual card ── */}
-          <AnimatedSection direction="left">
-            <div className="space-y-4">
-              {/* Profile card */}
-              <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 overflow-hidden">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-600/8 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-600/8 rounded-full blur-3xl" />
-
-                <div className="relative text-center py-4">
-                  <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-800 flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-indigo-500/25 ring-1 ring-white/20 mb-4 tracking-wider">
-                    MT
-                  </div>
-                  <h3 className="text-white text-lg font-bold">Muhammad Mujtaba Tahir</h3>
-                  <p className="gradient-text font-semibold text-sm mt-1">Full-Stack Engineer &amp; Agency Partner</p>
-                  <div className="flex items-center justify-center gap-2 mt-2.5 text-xs">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-emerald-400/90 font-medium">Available for New Projects &amp; White-Label</span>
-                  </div>
+          {/* ── Left Column: Profile & Config Card (Span 5) ── */}
+          <AnimatedSection direction="up" delay={0.1} className="lg:col-span-5">
+            <div className="rounded-3xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl p-6 sm:p-8 shadow-2xl space-y-6">
+              
+              {/* Profile Monogram & Title */}
+              <div className="text-center py-2">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-tr from-zinc-800 to-zinc-700 border border-white/15 flex items-center justify-center text-white font-black text-xl sm:text-2xl shadow-xl mb-4">
+                  MT
                 </div>
-
-                {/* Code snippet */}
-                <div className="relative mt-3 bg-black/40 rounded-xl p-4 font-mono text-[12px] border border-white/[0.08]">
-                  <div className="flex items-center justify-between mb-3 border-b border-white/[0.06] pb-2">
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                    </div>
-                    <span className="text-gray-500 text-[11px]">engineer.config.ts</span>
-                  </div>
-                  <div className="space-y-1 text-left text-[11.5px]">
-                    <p><span className="text-blue-400">export const</span> <span className="text-indigo-300">partner</span> <span className="text-gray-500">= {"{"}</span></p>
-                    <p className="pl-4"><span className="text-purple-400">specialization</span><span className="text-gray-500">:</span> <span className="text-emerald-300">&quot;Full-Stack Next.js 16 &amp; React 19&quot;</span><span className="text-gray-500">,</span></p>
-                    <p className="pl-4"><span className="text-purple-400">delivery</span><span className="text-gray-500">:</span> <span className="text-cyan-300">&quot;95+ Lighthouse • Sub-Second TTFB&quot;</span><span className="text-gray-500">,</span></p>
-                    <p className="pl-4"><span className="text-purple-400">whiteLabelReady</span><span className="text-gray-500">:</span> <span className="text-emerald-400">true</span><span className="text-gray-500">,</span></p>
-                    <p className="pl-4"><span className="text-purple-400">contractType</span><span className="text-gray-500">:</span> [<span className="text-amber-300">&quot;Agency Overflow&quot;</span><span className="text-gray-500">,</span> <span className="text-amber-300">&quot;Direct Build&quot;</span>]</p>
-                    <p><span className="text-gray-500">{"}"}</span></p>
-                  </div>
+                <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                  Muhammad Mujtaba Tahir
+                </h3>
+                <p className="text-xs sm:text-sm text-zinc-400 font-medium mt-1">
+                  Full-Stack Engineer &amp; Agency Partner
+                </p>
+                <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Available for Q2 Projects</span>
                 </div>
               </div>
 
-              {/* Highlight grid */}
-              <div className="grid grid-cols-2 gap-3">
-                {highlights.map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={item.label}
-                      initial={{ opacity: 0, scale: 0.92 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      whileHover={{ y: -3 }}
-                      transition={{ delay: 0.08 * i }}
-                      viewport={{ once: true }}
-                      className={`rounded-xl p-4 border ${item.bg} transition-all cursor-default`}
-                    >
-                      <Icon size={18} color={item.color} className="mb-2" />
-                      <p className="text-white text-xs font-semibold leading-tight">{item.label}</p>
-                      <p className="text-gray-500 text-[11px] mt-0.5">{item.desc}</p>
-                    </motion.div>
-                  );
-                })}
+              {/* Code Configuration Snippet */}
+              <div className="rounded-2xl border border-white/10 bg-zinc-950/90 p-4 font-mono text-[11px] sm:text-xs text-zinc-300 space-y-1 shadow-inner">
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/[0.06] text-zinc-500 text-[10px]">
+                  <span>engineer.config.ts</span>
+                  <span>status: ready</span>
+                </div>
+                <p><span className="text-purple-400">const</span> <span className="text-emerald-400">partner</span> = &#123;</p>
+                <p className="pl-4"><span className="text-zinc-400">stack:</span> [<span className="text-amber-300">&quot;Next.js 16&quot;</span>, <span className="text-amber-300">&quot;React 19&quot;</span>],</p>
+                <p className="pl-4"><span className="text-zinc-400">performance:</span> <span className="text-cyan-300">&quot;95+ Core Web Vitals&quot;</span>,</p>
+                <p className="pl-4"><span className="text-zinc-400">whiteLabel:</span> <span className="text-emerald-400">true</span>,</p>
+                <p className="pl-4"><span className="text-zinc-400">timezoneOverlap:</span> <span className="text-amber-300">&quot;AEST / Global&quot;</span></p>
+                <p>&#125;;</p>
               </div>
+
             </div>
           </AnimatedSection>
 
-          {/* ── Right: text ── */}
-          <AnimatedSection direction="right" delay={0.15}>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-white leading-snug">
-                Full-Stack Engineer with a Focus on{" "}
-                <span className="gradient-text">Measurable Business Impact</span>
+          {/* ── Right Column: Narrative & Fact Badges (Span 7) ── */}
+          <AnimatedSection direction="up" delay={0.15} className="lg:col-span-7 space-y-6">
+            
+            <div className="space-y-4 text-zinc-300 text-sm sm:text-base leading-relaxed">
+              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Turning complex client requirements into fast, revenue-generating software.
               </h3>
+              <p>
+                I specialize in <span className="text-white font-semibold">React 19</span>, <span className="text-white font-semibold">Next.js 16 (App Router)</span>, <span className="text-white font-semibold">TypeScript</span>, and <span className="text-white font-semibold">Node.js</span>. I bridge the gap between high-end Figma design and bulletproof production code.
+              </p>
+              <p className="text-zinc-400">
+                For digital marketing agencies, I act as an external technical engine—taking on overflow client builds, custom quote calculators, and performance overhauls without adding full-time payroll overhead. For direct trade and high-ticket service companies, I build conversion-engineered web platforms that turn mobile clicks into booked calls.
+              </p>
+            </div>
 
-              <div className="space-y-3 text-gray-400 text-sm leading-relaxed">
-                <p>
-                  I specialize in{" "}
-                  <span className="text-indigo-400 font-medium">React 19</span>,{" "}
-                  <span className="text-purple-400 font-medium">Next.js 16 (App Router)</span>,{" "}
-                  <span className="text-cyan-400 font-medium">TypeScript</span>, and{" "}
-                  <span className="text-indigo-300 font-medium">Node.js</span> — engineering
-                  high-converting, responsive web applications with sub-second page loads and zero layout shift.
-                </p>
-                <p>
-                  Whether serving as an external engineering partner for digital marketing agencies needing white-label development capacity, or building custom interactive platforms directly for high-ticket businesses, I bring rigorous code standards and reliable milestone delivery.
-                </p>
-                <p>
-                  From complex interactive calculators and state-driven funnels to headless integrations and enterprise PostgreSQL backends, I own the full engineering lifecycle from Figma to production.
-                </p>
-              </div>
-
-              {/* Quick facts */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {facts.map((f) => (
-                  <div
-                    key={f.label}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05]"
-                  >
-                    <FaCheckCircle size={12} className="text-indigo-400 flex-shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-gray-600 text-[11px]">{f.label}</p>
-                      <p className="text-gray-200 text-xs font-medium truncate">{f.value}</p>
+            {/* Quick Fact Grid with Generous Padding */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              {facts.map((f) => (
+                <div
+                  key={f.label}
+                  className="flex items-center gap-3 p-3.5 sm:p-4 rounded-2xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl"
+                >
+                  <FaCheckCircle className="text-emerald-400 flex-shrink-0" size={13} />
+                  <div className="min-w-0">
+                    <div className="text-[10px] sm:text-[11px] text-zinc-400 uppercase tracking-wider font-mono">
+                      {f.label}
+                    </div>
+                    <div className="text-xs sm:text-sm font-semibold text-white truncate mt-0.5">
+                      {f.value}
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <motion.a
-                href="/resume.pdf"
-                download
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-semibold shadow-lg shadow-indigo-500/25 hover:from-indigo-500 hover:to-purple-500 transition-all"
-              >
-                Download Resume
-                <FaArrowRight size={12} />
-              </motion.a>
+                </div>
+              ))}
             </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <button
+                onClick={() => smoothScrollTo("#projects")}
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-zinc-950 font-semibold text-xs sm:text-sm hover:bg-zinc-200 transition-all shadow-md shadow-white/5 cursor-pointer"
+              >
+                <span>Explore Flagship Projects</span>
+                <FaArrowRight size={10} />
+              </button>
+
+              <button
+                onClick={() => smoothScrollTo("#contact")}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-300 font-medium text-xs sm:text-sm hover:border-zinc-700 hover:text-white transition-all cursor-pointer"
+              >
+                <span>Partner With Me</span>
+              </button>
+            </div>
+
           </AnimatedSection>
+
         </div>
+
       </div>
     </section>
   );

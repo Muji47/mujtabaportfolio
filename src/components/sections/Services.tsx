@@ -22,9 +22,9 @@ export default function Services() {
 
       <div className="section-container relative z-10 max-w-6xl mx-auto">
         <SectionHeader
-          badge="Engagement Models"
-          title="How We Can"
-          highlight="Work Together"
+          badge="Agency & Client Services"
+          title="Agency White-Label &amp;"
+          highlight="Development Services"
           description="Transparent, reliable engineering capacity tailored for digital agencies and high-ticket service businesses."
         />
 

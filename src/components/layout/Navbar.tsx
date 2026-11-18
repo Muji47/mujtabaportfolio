@@ -13,11 +13,11 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 25);
       const sections = [...navLinks].map((l) => l.href.replace("#", ""));
       for (const s of sections.reverse()) {
         const el = document.getElementById(s);
-        if (el && el.getBoundingClientRect().top <= 160) {
+        if (el && el.getBoundingClientRect().top <= 180) {
           setActiveSection(s);
           break;
         }
@@ -34,45 +34,45 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── FLOATING ISLAND NAV (Linear / Vercel style) ── */}
-      <header className="fixed top-5 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
+      {/* ── FLOATING ISLAND NAV ── */}
+      <header className="fixed top-3 sm:top-5 inset-x-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
         <motion.div
-          initial={{ y: -40, opacity: 0 }}
+          initial={{ y: -30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className={`pointer-events-auto flex items-center justify-between gap-4 md:gap-8 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full border transition-all duration-300 shadow-2xl ${
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className={`pointer-events-auto flex items-center justify-between gap-3 sm:gap-6 px-4 py-2 sm:px-6 sm:py-3 rounded-full border transition-all duration-300 shadow-2xl max-w-4xl w-full ${
             scrolled
-              ? "bg-zinc-950/90 border-white/10 backdrop-blur-2xl shadow-black/80 ring-1 ring-white/5"
-              : "bg-zinc-950/70 border-white/[0.08] backdrop-blur-xl shadow-black/40"
+              ? "bg-zinc-950/95 border-white/10 backdrop-blur-2xl shadow-black/80 ring-1 ring-white/5"
+              : "bg-zinc-950/80 border-white/[0.08] backdrop-blur-xl shadow-black/50"
           }`}
         >
           {/* Brand Logo */}
           <button
             onClick={() => handleNav("#home")}
-            className="flex items-center gap-3 cursor-pointer group text-left"
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group text-left flex-shrink-0"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-zinc-800 to-zinc-700 border border-white/10 flex items-center justify-center text-white font-bold text-xs tracking-tight group-hover:border-emerald-500/50 transition-colors">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-zinc-800 to-zinc-700 border border-white/15 flex items-center justify-center text-white font-black text-xs tracking-tight group-hover:border-emerald-500/50 transition-colors">
               MT
             </div>
-            <div className="hidden sm:flex flex-col leading-none">
-              <span className="text-[13px] font-semibold text-white tracking-tight group-hover:text-emerald-400 transition-colors">
+            <div className="flex flex-col leading-none">
+              <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors">
                 Mujtaba Tahir
               </span>
-              <span className="text-[10px] text-zinc-400 font-medium tracking-wider uppercase mt-0.5">
+              <span className="hidden sm:inline-block text-[10px] text-zinc-400 font-medium tracking-wider uppercase mt-0.5">
                 Full-Stack Partner
               </span>
             </div>
           </button>
 
-          {/* Desktop Nav Items with Generous Pill Padding */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.slice(0, 5).map((link) => {
+          {/* Desktop Nav Items */}
+          <nav className="hidden md:flex items-center gap-0.5">
+            {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
               return (
                 <button
                   key={link.href}
                   onClick={() => handleNav(link.href)}
-                  className={`relative px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
+                  className={`relative px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
                     isActive
                       ? "text-white font-semibold"
                       : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
@@ -92,45 +92,54 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2.5">
-            {/* Social Link: GitHub */}
+          <div className="flex items-center gap-2">
+            {/* Social Links on Desktop */}
             <a
               href={profileLinks.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
-              className="hidden lg:flex w-9 h-9 rounded-full border border-white/10 bg-white/[0.03] items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-all cursor-pointer"
+              className="hidden lg:flex w-8 h-8 rounded-full border border-white/10 bg-white/[0.03] items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-all cursor-pointer"
             >
-              <FaGithub size={14} />
+              <FaGithub size={13} />
             </a>
 
-            {/* Social Link: LinkedIn */}
             <a
               href={profileLinks.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
-              className="hidden lg:flex w-9 h-9 rounded-full border border-white/10 bg-white/[0.03] items-center justify-center text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all cursor-pointer"
+              className="hidden lg:flex w-8 h-8 rounded-full border border-white/10 bg-white/[0.03] items-center justify-center text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all cursor-pointer"
             >
-              <FaLinkedin size={14} />
+              <FaLinkedin size={13} />
             </a>
 
-            {/* Tactile Primary CTA Pill */}
+            {/* Desktop CTA Pill */}
             <button
               onClick={() => handleNav("#contact")}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-zinc-950 text-xs font-semibold hover:bg-zinc-200 transition-all shadow-md shadow-white/5 cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-zinc-950 text-xs font-semibold hover:bg-zinc-200 transition-all shadow-md shadow-white/5 cursor-pointer"
             >
               <span>Get in Touch</span>
-              <FaArrowRight size={10} className="text-zinc-900" />
+              <FaArrowRight size={9} className="text-zinc-900" />
             </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Sleek & Compact */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle navigation menu"
-              className="md:hidden w-9 h-9 rounded-full border border-white/10 bg-white/[0.05] flex items-center justify-center text-zinc-300 hover:text-white cursor-pointer"
+              className="md:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.06] text-zinc-200 hover:text-white hover:bg-white/[0.1] transition-all cursor-pointer text-xs font-medium"
             >
-              {mobileOpen ? <FaTimes size={13} /> : <FaBars size={13} />}
+              {mobileOpen ? (
+                <>
+                  <FaTimes size={12} />
+                  <span>Close</span>
+                </>
+              ) : (
+                <>
+                  <FaBars size={12} />
+                  <span>Menu</span>
+                </>
+              )}
             </button>
           </div>
         </motion.div>
@@ -140,11 +149,11 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -15, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-20 inset-x-4 z-50 p-6 rounded-3xl bg-zinc-950/95 border border-white/15 backdrop-blur-3xl shadow-2xl flex flex-col gap-3 md:hidden"
+            className="fixed top-16 inset-x-3 z-50 p-6 rounded-3xl bg-zinc-950/98 border border-white/15 backdrop-blur-3xl shadow-2xl flex flex-col gap-3 md:hidden max-h-[85vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
@@ -152,13 +161,13 @@ export default function Navbar() {
               </span>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="text-zinc-400 hover:text-white"
+                className="text-zinc-400 hover:text-white p-1"
               >
-                <FaTimes size={14} />
+                <FaTimes size={13} />
               </button>
             </div>
 
-            <div className="flex flex-col gap-1 py-2">
+            <div className="flex flex-col gap-1 py-1">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
@@ -166,18 +175,37 @@ export default function Navbar() {
                   className="flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] transition-colors text-left"
                 >
                   <span>{link.label}</span>
-                  <FaArrowRight size={11} className="text-zinc-600" />
+                  <FaArrowRight size={10} className="text-zinc-600" />
                 </button>
               ))}
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex gap-3">
+            <div className="pt-3 border-t border-white/10 flex flex-col gap-3">
               <button
                 onClick={() => handleNav("#contact")}
-                className="w-full py-3 rounded-2xl bg-white text-zinc-950 font-bold text-xs text-center"
+                className="w-full py-3.5 rounded-full bg-white text-zinc-950 font-bold text-xs text-center shadow-lg cursor-pointer"
               >
-                Start a Project
+                Get in Touch / Start a Project
               </button>
+              <div className="flex justify-center gap-4 pt-2">
+                <a
+                  href={profileLinks.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5"
+                >
+                  <FaGithub size={13} /> GitHub
+                </a>
+                <span className="text-zinc-700">•</span>
+                <a
+                  href={profileLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-zinc-400 hover:text-emerald-400 flex items-center gap-1.5"
+                >
+                  <FaLinkedin size={13} /> LinkedIn
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
